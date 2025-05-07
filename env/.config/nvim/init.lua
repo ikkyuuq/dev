@@ -38,7 +38,7 @@ require("lazy").setup({
 	require("plugins.emmet"),
 	require("plugins.telescope"),
 	require("plugins.trouble"),
-	-- require("plugins.harpoon"),
+	require("plugins.harpoon"),
 	require("plugins.undotree"),
 	require("plugins.persistence"),
 	require("plugins.showkeys"),

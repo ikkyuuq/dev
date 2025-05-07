@@ -24,13 +24,13 @@ return {
 		end)
 
 		--Harpoon marked files
-		vim.keymap.set("n", "<M-q>", function()
+		vim.keymap.set("n", "<leader>1", function()
 			harpoon:list():select(1)
 		end)
-		vim.keymap.set("n", "<M-w>", function()
+		vim.keymap.set("n", "<leader>2", function()
 			harpoon:list():select(2)
 		end)
-		vim.keymap.set("n", "<M-e>", function()
+		vim.keymap.set("n", "<leader>3", function()
 			harpoon:list():select(3)
 		end)
 
