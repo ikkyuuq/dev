@@ -1,0 +1,77 @@
+[user]
+    name = kppras
+    email = the.kittipongpras@gmail.com
+
+[url "git@github.com:ikkyuuq/"]
+    insteadOf = "dev:"
+
+[url "git@github.com:"]
+    insteadOf = "gh:"
+
+[status]
+    branch = true
+    showStash = true
+    showUntrackedFiles = all
+
+[diff]
+    context = 3
+    renames = copies
+    interHunkContext = 10
+
+[pager]
+    diff = diff-so-fancy | ${PAGER}
+    branch = false
+    tag = false
+
+[diff-so-fancy]
+    markEmptyLines = false
+
+[color "diff"]
+    meeta = black bold
+    frag = magenta
+    context = white
+    whitespace = yellow reverse
+    old = red
+
+[interactive]
+    diffFilter = diff-so-fancy --patch
+    singlekey = true
+
+[push]
+    autoSetupRemote = true
+    default = current
+    followTags = true
+
+[pull]
+    default = current
+    revase = true
+
+[rebase]
+    autoStash = true
+    missingCommitsCheck = warn
+
+[log]
+    abbrevCommit = true
+    graphColors = blue,yellow,cyan,magenta,green,red
+
+[color "decorate"]
+    HEAD = red
+    branch = blue
+    tag = yellow
+    remoteBranch = magenta
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = -taggerdate
+
+[core]
+    compression = 9
+    whitespace = error
+    preloadindex = true
+
+[advice]
+    addEmptyPathspen = false
+    pushNonFastForward = false
+    statusHints = false

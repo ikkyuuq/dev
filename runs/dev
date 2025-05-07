@@ -1,0 +1,111 @@
+#!/bin/bash
+
+if ! command -v pacman &> /dev/null; then
+    echo "Error: This script is for Arch Linux only."
+    exit 1
+fi
+
+# Developer tools
+packages=(
+    "ghostty"
+    "nvim"
+    "tmux"
+    "github-cli"
+    "docker"
+    "docker-compose"
+    "lazygit"
+    "starship"
+    "fish"
+    "zsh"
+    "exa"
+    "ripgrep"
+    "zoxide"
+    "fd"
+    "tldr"
+)
+
+# Programming Languages and Development Tools
+packages+=(
+    "nodejs"
+    "npm"
+    "rustup"
+    "rust-analyzer"
+    "cargo"
+    "python"
+    "go"
+    "gopls"
+)
+
+# System and Performance Tools
+packages+=(
+    "hyprland"
+    "hyprpaper"
+    "hyprlock"
+    "waybar"
+    "ttf-iosevka-nerd"
+    "ttf-nerd-fonts-symbols"
+    "ttf-font-awesome"
+    "btop"
+    "fastfetch"
+    "rofi-wayland"
+    "fzf"
+    "bat"
+)
+
+# Media and Productivity
+packages+=(
+    "obsidian"
+    "discord"
+    "gimp"
+)
+
+aur_packages=(
+    "zen-browser-bin"
+    "postman-bin"
+    "wallust"
+    "lazydocker"
+)
+
+# Initialize counters
+total_packages=${#packages[@]}+${#aur_packages[@]}
+installed_count=0
+failed_count=0
+
+echo "Starting installation of $total_packages packages..."
+echo "----------------------------------------"
+
+# Install each package
+for package in "${packages[@]}"; do
+    echo -n "Installing $package... "
+    if sudo pacman -S --noconfirm --needed "$package" &> /dev/null; then
+        echo "✓"
+        ((installed_count++))
+    else
+        echo "✗"
+        ((failed_count++))
+    fi
+done
+for package in "${aur_packages[@]}"; do
+    echo -n "Installing $package... "
+    if yes | paru -S --noconfirm --needed "$package" &> /dev/null; then
+        echo "✓"
+        ((installed_count++))
+    else
+        echo "✗"
+        ((failed_count++))
+    fi
+done
+
+echo "----------------------------------------"
+echo "Installation Summary:"
+echo "Total packages: $total_packages"
+echo "Successfully installed: $installed_count"
+echo "Failed installations: $failed_count"
+
+if [ $failed_count -gt 0 ]; then
+    echo "Warning: Some packages failed to install. Please check the errors above."
+    exit 1
+else
+    echo "All packages installed successfully!"
+    exit 0
+fi

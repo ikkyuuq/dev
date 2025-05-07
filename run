@@ -1,0 +1,39 @@
+#!/usr/bin/bash
+
+set -e
+
+RUNS_DIR="$(dirname "$0")/runs"
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 [script1] [script2] ..."
+    echo "Available scripts:"
+    for f in "$RUNS_DIR"/*; do
+        [ -f "$f" ] && [ -s "$f" ] && echo "  $(basename "$f")"
+    done
+    exit 1
+fi
+
+for script in "$@"; do
+    script_path="$RUNS_DIR/$script"
+    if [ ! -f "$script_path" ]; then
+        echo "[ERROR] Script '$script' does not exist in $RUNS_DIR."
+        continue
+    fi
+    if [ ! -s "$script_path" ]; then
+        echo "[SKIP] Script '$script' is empty."
+        continue
+    fi
+    if [ ! -x "$script_path" ]; then
+        echo "[INFO] Making '$script' executable."
+        chmod +x "$script_path"
+    fi
+    echo "[RUNNING] $script..."
+    "$script_path"
+    status=$?
+    if [ $status -eq 0 ]; then
+        echo "[SUCCESS] $script finished successfully."
+    else
+        echo "[FAIL] $script exited with status $status."
+    fi
+    echo "----------------------------------------"
+done 

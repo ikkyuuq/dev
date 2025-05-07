@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+(
+cd $HOME/personal/dev
+./update-dev
+hash -r
+)

@@ -1,0 +1,126 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-q": "pane::CloseActiveItem",
+      "ctrl-y": "terminal::Copy",
+      "alt-j": ["workspace::SendKeystrokes", "down"],
+      "alt-k": ["workspace::SendKeystrokes", "up"]
+    }
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "ctrl-x ctrl-o": "editor::ShowCompletions",
+      "ctrl-x ctrl-a": "assistant::InlineAssist",
+      "ctrl-x ctrl-c": "editor::ShowEditPrediction"
+    }
+  },
+  {
+    "context": "Workspace && vim_mode != insert",
+    "bindings": {
+      "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+    "bindings": {
+      "space m p": "markdown::OpenPreview",
+      "space m P": "markdown::OpenPreviewToTheSide",
+      // Git
+      "space g h d": "editor::ToggleSelectedDiffHunks",
+      "space g h r": "git::Restore",
+      "space g g": ["task::Spawn", { "task_name": "Lazygit" }],
+      "space g p": ["task::Spawn", { "task_name": "git pull --rebase" }],
+
+      "space p f": ["task::Spawn", { "task_name": "File Finder" }],
+      "space p s": ["task::Spawn", { "task_name": "Find in Files" }],
+      "space p w": "pane::DeploySearch"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "s h": "workspace::ActivatePaneLeft"
+    }
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "g s": "outline::Toggle",
+      "g i": "editor::ToggleCodeActions",
+      "g d": "editor::OpenExcerpts",
+      "g c": ["editor::ToggleComments", { "advance_downwards": false }]
+    }
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
+      "g l": "vim::SelectNext",
+      "g L": "vim::SelectPrevious",
+      "g a": "editor::SelectAllMatches",
+      "g shift-a": "editor::FindAllReferences",
+      "g f": "project_symbols::Toggle",
+      "ctrl-x x": "diagnostics::Deploy",
+      "ctrl-x w": "diagnostics::ToggleWarnings",
+      "space b d": "pane::CloseActiveItem"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j k": "vim::NormalBefore"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // Buffers
+      "s v": "pane::SplitRight",
+      "s h": "pane::SplitDown",
+      "space h": "pane::ActivatePreviousItem",
+      "space l": "pane::ActivateNextItem",
+      "space c": "pane::CloseActiveItem",
+      "space space": "file_finder::Toggle",
+      "space f": "editor::Format",
+      "space m": "tab_switcher::Toggle",
+      "ctrl-shift-e": "project_panel::ToggleFocus",
+      "ctrl-?": "assistant::ToggleFocus",
+
+      "ctrl-q": "pane::CloseActiveItem",
+
+      // Error navigation
+      "] e": "editor::GoToDiagnostic",
+      "[ e": "editor::GoToPreviousDiagnostic",
+
+      // Git
+      "] h": "editor::GoToHunk",
+      "[ h": "editor::GoToPreviousHunk"
+    }
+  },
+  {
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      "space x w": "diagnostics::ToggleWarnings",
+
+      "space p .": "projects::OpenRecent",
+      "space p f": ["task::Spawn", { "task_name": "File Finder" }],
+      "space p s": ["task::Spawn", { "task_name": "Find in Files" }],
+      "space p w": "pane::DeploySearch"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
+    "bindings": {
+      // visual, visual line & visual block modes
+      "g c": "editor::ToggleComments"
+    }
+  }
+]

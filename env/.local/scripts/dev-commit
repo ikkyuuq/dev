@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+pushd ~/personal/dev/env/.config/nvim
+git add .
+git commit -m 'nvim config update automated dev commit'
+git push
+popd
+
+pushd ~/personal/dev/env/.config/hypr
+git add .
+git commit -m 'hyprland config update automated dev commit'
+git push
+popd
+
+pushd ~/personal/dev
+git add .
+git commit -m 'dev scripts automated dev commit'
+git push
+popd

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Change default shell to fish for the current user
+if ! command -v fish &> /dev/null; then
+    echo "[ERROR] fish shell is not installed. Please install it first."
+    exit 1
+fi
+
+sudo chsh -s $(which fish)
+echo "[SUCCESS] Default shell changed to fish."

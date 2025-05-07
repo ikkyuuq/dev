@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Install Go utility: air (live reload for Go apps)
+if ! command -v go &> /dev/null; then
+    echo "[ERROR] Go is not installed. Please install Go first."
+    exit 1
+fi
+
+go install github.com/air-verse/air@latest
+status=$?
+if [ $status -eq 0 ]; then
+    echo "[SUCCESS] air installed successfully."
+else
+    echo "[FAIL] air installation failed."
+fi
