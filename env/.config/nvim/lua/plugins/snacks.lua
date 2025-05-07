@@ -126,15 +126,6 @@ return {
 					"~/Downloads",
 				},
 			},
-			dashboard = {
-				enabled = true,
-				sections = {
-					{ section = "header" },
-					{ section = "keys", gap = 1, padding = 1 },
-					{ section = "recent_files" },
-					{ section = "session" },
-				},
-			},
 		},
 		-- NOTE: Keymaps
 		keys = {
@@ -229,7 +220,7 @@ return {
 
 			-- Git Stuff
 			{
-				"<leader>gbr",
+				"<leader>gsw",
 				function()
 					require("snacks").picker.git_branches({ layout = "select" })
 				end,
