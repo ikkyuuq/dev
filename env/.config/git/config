@@ -18,14 +18,6 @@
     renames = copies
     interHunkContext = 10
 
-[pager]
-    diff = diff-so-fancy | ${PAGER}
-    branch = false
-    tag = false
-
-[diff-so-fancy]
-    markEmptyLines = false
-
 [color "diff"]
     meeta = black bold
     frag = magenta
@@ -34,7 +26,6 @@
     old = red
 
 [interactive]
-    diffFilter = diff-so-fancy --patch
     singlekey = true
 
 [push]

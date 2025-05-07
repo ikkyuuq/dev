@@ -1,6 +1,11 @@
 source ~/.config/fish/alias.fish
 
+set -U STARSHIP_CONFIG $XDG_CONFIG_HOME/starship.toml
+set -U fish_greeting
 set -U fish_user_paths ~/.local/scripts $fish_user_paths
+set -gx EDITOR nvim
+
+fish_vi_key_bindings --no-erase default
 
 if test -z (pgrep ssh-agent)
   eval (ssh-agent -c)
@@ -39,3 +44,5 @@ set -g fish_color_valid_path --underline
 
 # Install Starship
 starship init fish | source
+# Install Atuin better history
+atuin init fish | source
