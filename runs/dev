@@ -7,6 +7,7 @@ fi
 
 # Developer tools
 packages=(
+    "curl"
     "ghostty"
     "nvim"
     "tmux"
@@ -22,6 +23,7 @@ packages=(
     "zoxide"
     "fd"
     "tldr"
+    "jq"
 )
 
 # Programming Languages and Development Tools
@@ -45,6 +47,7 @@ packages+=(
     "ttf-iosevka-nerd"
     "ttf-nerd-fonts-symbols"
     "ttf-font-awesome"
+    "pavucontrol"
     "btop"
     "fastfetch"
     "rofi-wayland"
