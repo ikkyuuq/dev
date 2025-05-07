@@ -12,6 +12,12 @@ git commit -m 'hyprland config update automated dev commit'
 git push
 popd
 
+pushd ~/personal/dev/env/.config
+git add .
+git commit -m 'something in config just update automated dev commit'
+git push
+popd
+
 pushd ~/personal/dev
 git add .
 git commit -m 'dev scripts automated dev commit'
