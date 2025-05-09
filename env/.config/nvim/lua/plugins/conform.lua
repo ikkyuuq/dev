@@ -13,11 +13,7 @@ return {
 			graphql = { "biome", "prettierd", "prettier", stop_after_first = true },
 			json = { "biome", "prettierd", "prettier", stop_after_first = true },
 			jsonc = { "biome", "prettierd", "prettier", stop_after_first = true },
-			go = { "gofumpt", "goimports" },
-		},
-		format_on_save = {
-			timeout_ms = 500,
-			lsp_format = "fallback",
+			go = { "gofmt", "goimports" },
 		},
 	},
 }

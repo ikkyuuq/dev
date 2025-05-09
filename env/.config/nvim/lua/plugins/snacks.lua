@@ -17,6 +17,8 @@ return {
 			},
 			picker = {
 				enabled = true,
+				hidden = true,
+				ignored = true,
 				matchers = {
 					frecency = true,
 					cwd_bonus = true,

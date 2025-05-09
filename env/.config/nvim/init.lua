@@ -49,7 +49,7 @@ require("lazy").setup({
 	require("plugins.crates"),
 	require("plugins.rustaceanvim"),
 	require("plugins.nvim-dap"),
-	-- require("plugins.supermaven"),
+	require("plugins.supermaven"),
 })
 
 vim.cmd("colorscheme rose-pine")

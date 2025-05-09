@@ -113,3 +113,7 @@ vim.keymap.set("n", "<C-y>", "m`^y$``", opts)
 vim.keymap.set("n", "<leader>z", ":ZenMode<cr>", opts)
 
 vim.keymap.set("n", "<leader>sk", ":ShowkeysToggle<CR>", opts)
+
+vim.keymap.set("n", "<leader>f", function()
+	require("conform").format()
+end)
