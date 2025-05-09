@@ -2,7 +2,7 @@
 	"layer": "top",
 	"position": "top",
 	"modules-left": ["hyprland/workspaces"],
-	"modules-center": ["clock"],
+	"modules-center": ["custom/music"],
 	"modules-right": [
 		"pulseaudio",
 		"backlight",
@@ -10,7 +10,7 @@
 		"network",
 		"cpu",
 		"memory",
-		"tray",
+		"clock",
 		"custom/lock"
 	],
 	"hyprland/workspaces": {
