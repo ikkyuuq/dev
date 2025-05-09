@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Directory to save screenshots
+SAVE_DIR="$HOME/Pictures/Screenshots"
+mkdir -p "$SAVE_DIR"
+
+# Timestamp for unique filenames
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+# Function to notify
+notify() {
+    notify-send "Screenshot" "$1" -i camera
+}
+
+# Check arguments
+case "$1" in
+    "full")
+        grim "$SAVE_DIR/screenshot_$TIMESTAMP.png"
+        wl-copy < "$SAVE_DIR/screenshot_$TIMESTAMP.png"
+        notify "Full screen screenshot saved and copied to clipboard"
+        ;;
+    "region")
+        grim -g "$(slurp)" "$SAVE_DIR/screenshot_$TIMESTAMP.png"
+        wl-copy < "$SAVE_DIR/screenshot_$TIMESTAMP.png"
+        notify "Region screenshot saved and copied to clipboard"
+        ;;
+    "window")
+        # Requires hyprctl to get active window geometry
+        grim -g "$(hyprctl activewindow | grep 'at:' | awk '{print $2}' | head -n 1) $(hyprctl activewindow | grep 'size:' | awk '{print $2}' | head -n 1)" "$SAVE_DIR/screenshot_$TIMESTAMP.png"
+        wl-copy < "$SAVE_DIR/screenshot_$TIMESTAMP.png"
+        notify "Window screenshot saved and copied to clipboard"
+        ;;
+    *)
+        echo "Usage: $0 {full|region|window}"
+        exit 1
+        ;;
+esac
