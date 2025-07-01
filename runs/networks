@@ -1,0 +1,36 @@
+#!/bin/bash
+
+packages=(
+    "iproute2"
+    "net-tools"
+    "inetutils"
+    "tcpdump"
+    "wireshark-cli"
+    "wireshark-qt"
+    "nmap"
+    "socat"
+    "iputils"
+    "aircrack-ng"
+    "iw"
+    "wpa_supplicant"
+    "rfkill"
+)
+
+total_packages=${#packages[@]}+${#aur_packages[@]}
+installed_count=0
+failed_count=0
+
+echo "Starting installation of $total_packages packages..."
+echo "----------------------------------------"
+
+# Install each package
+for package in "${packages[@]}"; do
+    echo -n "Installing $package... "
+    if sudo pacman -S --noconfirm --needed "$package" &> /dev/null; then
+        echo "✓"
+        ((installed_count++))
+    else
+        echo "✗"
+        ((failed_count++))
+    fi
+done
