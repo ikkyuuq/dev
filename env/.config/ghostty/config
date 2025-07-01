@@ -20,7 +20,7 @@
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
 shell-integration = fish
-theme = "GruvboxDarkHard"
+theme = "Kanagawa Dragon"
 
 font-family = Iosevka Term
 font-size = 16
