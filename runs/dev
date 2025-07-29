@@ -43,16 +43,15 @@ packages+=(
     "hyprland"
     "hyprpaper"
     "hyprlock"
-    "waybar"
     "ttf-iosevka-nerd"
     "ttf-nerd-fonts-symbols"
     "ttf-font-awesome"
     "pavucontrol"
     "btop"
     "fastfetch"
-    "rofi-wayland"
     "fzf"
     "bat"
+    "quickshell"
 )
 
 # Media and Productivity
@@ -67,6 +66,7 @@ aur_packages=(
     "postman-bin"
     "wallust"
     "lazydocker"
+    "caelestia-shell-git"
 )
 
 # Initialize counters

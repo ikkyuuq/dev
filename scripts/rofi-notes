@@ -1,0 +1,114 @@
+#!/bin/bash
+
+# Rofi Notes Manager
+# Creates new notes or opens existing ones
+
+NOTES_DIR="/home/kppras/personal/dev/notes"
+EDITOR="${EDITOR:-nvim}"
+
+# Ensure notes directory exists
+mkdir -p "$NOTES_DIR"
+
+# Function to create new note
+create_note() {
+    local note_name="$1"
+    local note_file="$NOTES_DIR/${note_name}.md"
+    
+    if [[ -z "$note_name" ]]; then
+        exit 1
+    fi
+    
+    # Create note with timestamp header if it doesn't exist
+    if [[ ! -f "$note_file" ]]; then
+        echo "# $note_name" > "$note_file"
+        echo "" >> "$note_file"
+        echo "Created: $(date '+%Y-%m-%d %H:%M:%S')" >> "$note_file"
+        echo "" >> "$note_file"
+    fi
+    
+    # Try to find existing terminal and open editor there
+    if command -v tmux >/dev/null 2>&1 && tmux list-sessions >/dev/null 2>&1; then
+        # Use tmux if available and has sessions
+        tmux new-window -c "$NOTES_DIR" "$EDITOR '$note_file'" 2>/dev/null || \
+        tmux new-session -d -c "$NOTES_DIR" "$EDITOR '$note_file'"
+    elif pgrep -x "ghostty" >/dev/null; then
+        # Find existing terminal and send editor command
+        if command -v xdotool >/dev/null 2>&1; then
+            # Get the window ID of an existing terminal
+            terminal_id=$(xdotool search --class "ghostty" | head -1)
+            if [[ -n "$terminal_id" ]]; then
+                xdotool windowactivate "$terminal_id"
+                sleep 0.1
+                xdotool type --window "$terminal_id" "$EDITOR '$note_file'"
+                xdotool key --window "$terminal_id" Return
+            else
+                # No existing terminal found, open new one
+                open_new_terminal "$note_file"
+            fi
+        else
+            # xdotool not available, open new terminal
+            open_new_terminal "$note_file"
+        fi
+    else
+        # No existing terminal found, open new one
+        open_new_terminal "$note_file"
+    fi
+}
+
+# Function to open new terminal with editor
+open_new_terminal() {
+    local note_file="$1"
+    
+    if command -v ghostty >/dev/null 2>&1; then
+        ghostty --directory "$NOTES_DIR" sh -c "$EDITOR '$note_file'" &
+    else
+        # Fallback to opening in current terminal
+        $EDITOR "$note_file"
+    fi
+}
+
+# Function to get existing notes
+get_notes() {
+    if [[ -d "$NOTES_DIR" ]]; then
+        find "$NOTES_DIR" -name "*.md" -type f | while read -r file; do
+            basename "$file" .md
+        done | sort
+    fi
+}
+
+# Main rofi menu
+main_menu() {
+    local existing_notes
+    existing_notes=$(get_notes)
+    
+    local options="📝 New Note"
+    if [[ -n "$existing_notes" ]]; then
+        options="$options\n$existing_notes"
+    fi
+    
+    echo -e "$options" | rofi -dmenu -p "Notes" -theme-str 'window {width: 400px;}'
+}
+
+# Get note name input
+get_note_name() {
+    rofi -dmenu -p "Note Name" -theme-str 'window {width: 400px;}' -filter ""
+}
+
+# Main logic
+choice=$(main_menu)
+
+case "$choice" in
+    "📝 New Note")
+        note_name=$(get_note_name)
+        if [[ -n "$note_name" ]]; then
+            create_note "$note_name"
+        fi
+        ;;
+    *)
+        if [[ -n "$choice" ]]; then
+            create_note "$choice"
+        else
+            exit 1
+        fi
+        ;;
+esac
