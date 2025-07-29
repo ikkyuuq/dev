@@ -1,9 +1,11 @@
 source ~/.config/fish/alias.fish
+source ~/.config/fish/functions/arduino-comp.fish  
 
 set -U STARSHIP_CONFIG $XDG_CONFIG_HOME/starship.toml
 set -U fish_greeting
 set -U fish_user_paths ~/.local/scripts $fish_user_paths
 set -gx EDITOR nvim
+set -gx WOKWI_CLI_TOKEN wok_C6QUuKHVwOjBgvN81xuJdU9lG0sQjNbY66e61bfa
 
 fish_vi_key_bindings --no-erase default
 
@@ -41,6 +43,8 @@ set -g fish_color_search_match 'bryellow'  '--background=brblack'
 set -g fish_color_selection 'white'  '--bold'  '--background=brblack'
 set -g fish_color_user brgreen
 set -g fish_color_valid_path --underline
+
+set -Ux GEMINI_API_KEY 'AIzaSyB0B7jrVoHyauSmR-RgNHo23XAJqiyveX8'
 
 # Install Starship
 starship init fish | source

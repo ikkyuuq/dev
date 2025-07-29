@@ -13,14 +13,12 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("env.config.nvim.config.init").setup({
+require("lazy").setup({
 	require("plugins.colortheme"),
 	require("plugins.snacks"),
 	require("plugins.oil"),
 	-- require("plugins.lualine"),
-	require("plugins.tpopestuff"),
 	require("plugins.treesitter"),
-	require("plugins.todo"),
 	require("plugins.mini"),
 	-- require("plugins.nvim-cmp"),
 	require("plugins.blink"),
@@ -38,10 +36,11 @@ require("env.config.nvim.config.init").setup({
 	require("plugins.emmet"),
 	require("plugins.telescope"),
 	require("plugins.trouble"),
-	-- require("plugins.harpoon"),
+	require("plugins.harpoon"),
 	require("plugins.undotree"),
-	require("plugins.persistence"),
-	require("plugins.showkeys"),
+	require("plugins.mason"),
+	require("plugins.which-key"),
+	require("plugins.toggleterm"),
 	require("plugins.gitworktree"),
 	-- require("plugins.copilot"),
 	require("plugins.linting"),
@@ -49,7 +48,7 @@ require("env.config.nvim.config.init").setup({
 	require("plugins.crates"),
 	require("plugins.rustaceanvim"),
 	require("plugins.nvim-dap"),
-	-- require("plugins.supermaven"),
+	require("plugins.supermaven"),
 })
 
 vim.cmd("colorscheme rose-pine")
