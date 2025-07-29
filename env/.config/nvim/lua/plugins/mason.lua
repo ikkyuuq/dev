@@ -1,191 +1,82 @@
 return {
-	"williamboman/mason.nvim",
-	lazy = false,
-	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		"hrsh7th/cmp-nvim-lsp",
-		"neovim/nvim-lspconfig",
-	},
-	config = function()
-		local mason = require("mason")
-		local mason_lspconfig = require("mason-lspconfig")
-		local mason_tool_installer = require("mason-tool-installer")
+    {
+        "williamboman/mason.nvim",
+        lazy = false, -- Load immediately to ensure PATH is set
+        cmd = "Mason",
+        build = ":MasonUpdate",
+        opts = {
+            ensure_installed = {
+                -- LSP servers (matching your vim.lsp.enable() config)
+                "clangd",                      -- C LSP
+                "lua-language-server",         -- Lua LSP
+                "gopls",                       -- Go LSP
+                "zls",                         -- Zig LSP
+                "typescript-language-server",  -- TypeScript LSP
+                "rust-analyzer",               -- Rust LSP
+                "intelephense",                -- PHP LSP
+                "tailwindcss-language-server", -- Tailwind CSS LSP
+                "html-lsp",                    -- HTML LSP
+                "css-lsp",                     -- CSS LSP
+                "vue-language-server",         -- Vue LSP
 
-		local lspconfig = require("lspconfig")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+                -- Formatters (for conform.nvim and general use)
+                "clang-format",
+                "stylua",
+                "goimports",
+                -- Note: gofmt comes with Go installation, not managed by Mason
+                "prettier",
+                "black",
+                "isort",
 
-		-- enable mason and configure icons
-		mason.setup({
-			ui = {
-				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
-				},
-			},
-		})
+                -- Linters and diagnostics
+                "golangci-lint",
+                "cpplint",
+                "eslint_d",
+                -- "luacheck", -- Lua linting
+                -- "pint",     -- Laravel Pint for PHP (formatting & linting)
 
-		mason_lspconfig.setup({
-			-- servers for mason to install
-			ensure_installed = {
-				"lua_ls",
-				"ts_ls",
-				"html",
-				"cssls",
-				"tailwindcss",
-				"gopls",
-				"emmet_ls",
-				"emmet_language_server",
-				"marksman",
-				"bashls",
-				"intelephense",
-				"jsonls",
-				"pyright",
-				"rust_analyzer",
-				"biome",
-			},
-			-- auto install configured servers (with lspconfig)
-			automatic_installation = true,
-		})
+                -- Additional useful tools
+                "delve",      -- Go debugger
+                "shfmt",      -- Shell formatter
+                "shellcheck", -- Shell linter
 
-		mason_tool_installer.setup({
-			ensure_installed = {
-				"prettier", -- prettier formatter
-				"stylua", -- lua formatter
-				"isort", -- python formatter
-				"pylint",
-				"clangd",
-				"denols",
-				"eslint_d",
-			},
-		})
+                -- Optional but useful additions
+                -- "markdownlint", -- Markdown linting
+                -- "yamllint",     -- YAML linting
+                -- "jsonlint",     -- JSON linting
+            },
+        },
+        config = function(_, opts)
+            -- PATH is handled by core.mason-path for consistency
+            require("mason").setup(opts)
 
-		-- NOTE: Moved from lspconfig.lua
+            -- Auto-install ensure_installed tools with better error handling
+            local mr = require("mason-registry")
+            local function ensure_installed()
+                for _, tool in ipairs(opts.ensure_installed) do
+                    if mr.has_package(tool) then
+                        local p = mr.get_package(tool)
+                        if not p:is_installed() then
+                            vim.notify("Mason: Installing " .. tool .. "...", vim.log.levels.INFO)
+                            p:install():once("closed", function()
+                                if p:is_installed() then
+                                    vim.notify("Mason: Successfully installed " .. tool, vim.log.levels.INFO)
+                                else
+                                    vim.notify("Mason: Failed to install " .. tool, vim.log.levels.ERROR)
+                                end
+                            end)
+                        end
+                    else
+                        vim.notify("Mason: Package '" .. tool .. "' not found", vim.log.levels.WARN)
+                    end
+                end
+            end
 
-		mason_lspconfig.setup_handlers({
-			-- default handler for installed servers
-			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-				})
-			end,
-			["rust_analyzer"] = function()
-				lspconfig.rust_analyzer.setup({
-					settings = {
-						["rust-analyzer"] = {
-							checkOnSave = {
-								command = "clippy",
-							},
-						},
-					},
-				})
-			end,
-			["emmet_ls"] = function()
-				-- configure emmet language server
-				lspconfig["emmet_ls"].setup({
-					capabilities = capabilities,
-					filetypes = {
-						"html",
-						"typescriptreact",
-						"javascriptreact",
-						"css",
-						"sass",
-						"scss",
-						"less",
-						"svelte",
-					},
-				})
-			end,
-			["emmet_language_server"] = function()
-				lspconfig.emmet_language_server.setup({
-					filetypes = {
-						"css",
-						"eruby",
-						"html",
-						"javascript",
-						"javascriptreact",
-						"less",
-						"sass",
-						"scss",
-						"pug",
-						"typescriptreact",
-					},
-					-- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
-					-- **Note:** only the options listed in the table are supported.
-					init_options = {
-						---@type table<string, string>
-						includeLanguages = {},
-						--- @type string[]
-						excludeLanguages = {},
-						--- @type string[]
-						extensionsPath = {},
-						--- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
-						preferences = {},
-						--- @type boolean Defaults to `true`
-						showAbbreviationSuggestions = true,
-						--- @type "always" | "never" Defaults to `"always"`
-						showExpandedAbbreviation = "always",
-						--- @type boolean Defaults to `false`
-						showSuggestionsAsSnippets = false,
-						--- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
-						syntaxProfiles = {},
-						--- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
-						variables = {},
-					},
-				})
-			end,
-			["denols"] = function()
-				lspconfig.denols.setup({
-					capabilities = capabilities,
-					root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"), -- Attach only if these files exist
-				})
-			end,
-			["ts_ls"] = function()
-				lspconfig.ts_ls.setup({
-					capabilities = capabilities,
-					root_dir = function(fname)
-						-- Use tsserver unless a Deno-specific config is present
-						local util = lspconfig.util
-						return not util.root_pattern("deno.json", "deno.jsonc")(fname)
-							and util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")(fname)
-					end,
-					single_file_support = false,
-					init_options = {
-						preferences = {
-							includeCompletionsWithSnippetText = true,
-							includeCompletionsForImportStatements = true,
-						},
-					},
-				})
-			end,
-			["biome"] = function()
-				lspconfig.biome.setup({
-					cmd = { "biome", "lsp-proxy" },
-					filetypes = {
-						"astro",
-						"css",
-						"graphql",
-						"javascript",
-						"javascriptreact",
-						"json",
-						"jsonc",
-						"svelte",
-						"typescript",
-						"typescript.tsx",
-						"typescriptreact",
-						"vue",
-					},
-					root_dir = function(fname)
-						-- Use biome unless a Deno-specific config is present
-						local util = lspconfig.util
-						return not util.root_pattern("deno.json", "deno.jsonc")(fname)
-							and util.root_pattern("biome.json", "biome.jsonc")(fname)
-					end,
-					single_file_support = false,
-				})
-			end,
-		})
-	end,
+            if mr.refresh then
+                mr.refresh(ensure_installed)
+            else
+                ensure_installed()
+            end
+        end,
+    },
 }
