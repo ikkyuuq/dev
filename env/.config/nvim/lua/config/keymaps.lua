@@ -1,11 +1,9 @@
 -- Quick to normal
 vim.keymap.set("i", "jk", "<ESC>")
+vim.keymap.set("t", "jk", "<C-\\><C-n>")
 
 -- Buffers
 vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Delete Buffer" })
-
--- Normal mode mappings
-vim.keymap.set("n", "<leader>c", ":nohlsearch<CR>", { desc = "Clear search highlights" })
 
 -- Y to EOL
 vim.keymap.set("n", "Y", "y$", { desc = "Yank to end of line" })
@@ -44,7 +42,7 @@ vim.keymap.set("v", ">", ">gv", { silent = true, noremap = true })
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
 -- Copy Full File-Path
-vim.keymap.set("n", "<leader>pa", function()
+vim.keymap.set("n", "<leader>pwd", function()
   local path = vim.fn.expand("%:p")
   vim.fn.setreg("+", path)
   print("file:", path)

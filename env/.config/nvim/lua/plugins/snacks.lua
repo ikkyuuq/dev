@@ -18,7 +18,6 @@ return {
     },
     notifier = { enabled = true },
     quickfile = { enabled = true },
-    statuscolumn = { enabled = true },
   },
   keys = {
     -- Picker
@@ -37,7 +36,7 @@ return {
     { "<leader>gL",       function() Snacks.picker.git_log_line() end,               desc = "Git log" },
     { "<leader>gg",       function() Snacks.lazygit() end,                      desc = "Lazygit" },
     -- LSP
-    { "gd",               function() Snacks.picker.lsp_definitions() end,       desc = "Goto Definition" },
+    { "gd",               function() Snacks.picker.lsp_definitions({auto_confirm = true, include_current = false, }) end,       desc = "Goto Definition" },
     { "gD",               function() Snacks.picker.lsp_declarations() end,      desc = "Goto Declaration" },
     { "gr",               function() Snacks.picker.lsp_references() end,        nowait = true,                  desc = "References" },
     { "gI",               function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },

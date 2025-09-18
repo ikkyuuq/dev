@@ -53,6 +53,9 @@ return {
       -- Rust
       rust = { "rustfmt" },
 
+      -- Typst
+      typst = { "prettypst" },
+
       -- Additional file types (uncomment as needed)
       -- markdown = { "markdownlint" },
       -- yaml = { "yamllint" },

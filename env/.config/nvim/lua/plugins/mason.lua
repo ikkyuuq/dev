@@ -18,6 +18,7 @@ return {
                 "html-lsp",                    -- HTML LSP
                 "css-lsp",                     -- CSS LSP
                 "vue-language-server",         -- Vue LSP
+                "arduino-language-server",     -- Arduino LSP
 
                 -- Formatters (for conform.nvim and general use)
                 "clang-format",

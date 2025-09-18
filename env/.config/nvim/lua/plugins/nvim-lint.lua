@@ -22,14 +22,17 @@ return {
 			javascriptreact = { "eslint_d" },
 			typescriptreact = { "eslint_d" },
 
+      -- Markdown
+			markdown = { "vale" },
+
 			-- Shell
 			sh = { "shellcheck" },
 			bash = { "shellcheck" },
 			zsh = { "shellcheck" },
 
 			-- You can add more linters here as needed
-			python = { "flake8", "pylint" },
-			rust = { "clippy" },
+			python = { "flake8" },
+			rust = { "clippy" }
 		}
 
 		-- Auto-lint on save and text changes

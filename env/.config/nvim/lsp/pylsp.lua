@@ -5,18 +5,23 @@ return {
   settings = {
     pylsp = {
       plugins = {
-        pycodestyle = {
-          ignore = {'W391'},
-          maxLineLength = 100
+        pycodestyle = { enabled = false },  -- Disable if you don't want style warnings
+        mccabe = { enabled = false },
+        pyflakes = { enabled = true },
+        pylint = { enabled = false },  -- Can be enabled if you want it
+        autopep8 = { enabled = false },
+        yapf = { enabled = false },
+        -- Jedi settings for better completion
+        jedi_completion = { 
+          enabled = true,
+          include_params = true,
+          include_class_objects = true,
+          fuzzy = true
         },
-        pylint = { enabled = true, executable = 'pylint' },
-        pyflakes = { enabled = false },
-        yapf = { enabled = true },
-        jedi_completion = { fuzzy = true },
         jedi_hover = { enabled = true },
         jedi_references = { enabled = true },
         jedi_signature_help = { enabled = true },
-        jedi_symbols = { enabled = true, all_scopes = true },
+        jedi_symbols = { enabled = true },
       }
     }
   },

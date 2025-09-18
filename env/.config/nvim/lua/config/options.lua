@@ -44,8 +44,9 @@ opt.modifiable = true
 opt.guicursor = ""
 opt.encoding = "UTF-8"
 opt.showmode = false
+opt.cursorline = true
+opt.cursorlineopt = 'number'
 
 -- folds
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 99
+opt.foldcolumn = '1'
