@@ -7,6 +7,8 @@ abbr ... 'cd ../..'
 abbr .... 'cd ../../..'
 abbr home 'cd ~'
 
+abbr vim 'nvim'
+
 # Directory listing
 # abbr ls 'eza --grid --color=always'
 # abbr lf 'eza --only-files --color=always'

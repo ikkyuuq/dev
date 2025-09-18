@@ -1,8 +1,8 @@
 {
 	"layer": "top",
 	"position": "top",
-	"modules-left": ["hyprland/workspaces"],
-	"modules-center": ["custom/music"],
+	"modules-left": ["hyprland/workspaces", "custom/music"],
+	"modules-center": ["clock"],
 	"modules-right": [
 		"pulseaudio",
 		"backlight",
@@ -10,8 +10,6 @@
 		"network",
 		"cpu",
 		"memory",
-		"clock",
-		"custom/lock"
 	],
 	"hyprland/workspaces": {
 		"format": "{name}: {icon}",
