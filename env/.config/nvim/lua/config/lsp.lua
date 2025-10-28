@@ -1,18 +1,21 @@
-vim.lsp.enable(
-  {
-    "clangd",
-    "marksman",
-    "lua_ls",
-    "gopls",
-    "vtsls",
-    "biome",
-    "rust_analyzer",
-    "pyright",
-    "arduino_language_server",
-    "tinymist",
-    "elixir-ls"
-  }
-)
+local servers = {
+  "just-lsp",
+  "zls",
+  "clangd",
+  "marksman",
+  "lua_ls",
+  "gopls",
+  "vtsls",
+  "biome",
+  "rust_analyzer",
+  "pyright",
+  "tinymist",
+  "elixir-ls",
+  "arduino_language_server",
+  "ols",
+}
+
+vim.lsp.enable(servers)
 
 vim.diagnostic.config({
   virtual_text = true, -- using tiny-inline-diagnostic

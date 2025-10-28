@@ -9,10 +9,6 @@ return {
 
 		-- Configure linters by filetype (using Mason-managed tools)
 		lint.linters_by_ft = {
-      -- C
-      c = {"cpplint"},
-      cpp = {"cpplint"},
-
 			-- Go
 			go = { "golangcilint" },
 

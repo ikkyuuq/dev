@@ -1,72 +1,76 @@
 return {
-  "stevearc/conform.nvim",
-  event = { "BufWritePre" },
-  cmd = { "ConformInfo" },
-  keys = {
-    {
-      "<leader>cf",
-      function()
-        require("conform").format({ async = true }, function(err, did_edit)
-          if not err and did_edit then
-            vim.notify("Code formatted", vim.log.levels.INFO, { title = "Conform" })
-          end
-        end)
-      end,
-      mode = { "n", "v" },
-      desc = "Format buffer",
-    },
-  },
-  opts = {
-    formatters_by_ft = {
-      -- C
-      c = { "clang-format" },
+	"stevearc/conform.nvim",
+	event = { "BufWritePre" },
+	cmd = { "ConformInfo" },
+	keys = {
+		{
+			"<leader>cf",
+			function()
+				require("conform").format({ async = true }, function(err, did_edit)
+					if not err and did_edit then
+						vim.notify("Code formatted", vim.log.levels.INFO, { title = "Conform" })
+					end
+				end)
+			end,
+			mode = { "n", "v" },
+			desc = "Format buffer",
+		},
+	},
+	opts = {
+		formatters_by_ft = {
+			-- C
+			c = { "clang-format" },
 
-      -- Go
-      go = { "goimports", "gofmt" },
+			-- Go
+			go = { "goimports", "gofmt" },
 
-      -- Lua
-      lua = { "stylua" },
+			-- Lua
+			lua = { "stylua" },
 
-      -- Web things
-      javascript = { "prettier" },
-      typescript = { "prettier" },
-      javascriptreact = { "prettier" },
-      typescriptreact = { "prettier" },
-      json = { "prettier" },
-      jsonc = { "prettier" },
-      yaml = { "prettier" },
-      markdown = { "prettier" },
-      html = { "prettier" },
-      css = { "prettier" },
-      scss = { "prettier" },
+			-- Web things
+			javascript = { "prettier" },
+			typescript = { "prettier" },
+			javascriptreact = { "prettier" },
+			typescriptreact = { "prettier" },
+			json = { "prettier" },
+			jsonc = { "prettier" },
+			yaml = { "prettier" },
+			markdown = { "prettier" },
+			html = { "prettier" },
+			css = { "prettier" },
+			scss = { "prettier" },
 
-      -- Python
-      python = { "isort", "black" },
+			-- Python
+			python = { "isort", "black" },
 
-      -- PHP/Laravel
-      php = { "pint" },
+			-- PHP/Laravel
+			php = { "pint" },
 
-      -- Shell
-      sh = { "shfmt" },
-      bash = { "shfmt" },
+			-- Shell
+			sh = { "shfmt" },
+			bash = { "shfmt" },
 
-      -- Rust
-      rust = { "rustfmt" },
+			-- Rust
+			rust = { "rustfmt" },
 
-      -- Typst
-      typst = { "prettypst" },
+			-- Typst
+			typst = { "prettypst" },
 
-      -- Additional file types (uncomment as needed)
-      -- markdown = { "markdownlint" },
-      -- yaml = { "yamllint" },
-      -- toml = { "taplo" },
-    },
-    default_format_opts = {
-      lsp_format = "fallback",
-    },
-
-  },
-  init = function()
-    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-  end,
+			-- Additional file types (uncomment as needed)
+			-- markdown = { "markdownlint" },
+			-- yaml = { "yamllint" },
+			-- toml = { "taplo" },
+		},
+		formatters = {
+			clang_format = {
+				prepend_args = { "--style=file" },
+			},
+		},
+		default_format_opts = {
+			lsp_format = "fallback",
+		},
+	},
+	init = function()
+		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+	end,
 }

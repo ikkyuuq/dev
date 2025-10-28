@@ -2,11 +2,7 @@ return {
   cmd = {
     'clangd',
     '--background-index',
-    '--clang-tidy',
-    '--header-insertion=iwyu',
-    '--completion-style=detailed',
-    '--function-arg-placeholders',
-    '--fallback-style=llvm',
+    '--clang-tidy'
   },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
   root_markers = {

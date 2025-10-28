@@ -36,9 +36,9 @@ return {
     { "<leader>gL",       function() Snacks.picker.git_log_line() end,               desc = "Git log" },
     { "<leader>gg",       function() Snacks.lazygit() end,                      desc = "Lazygit" },
     -- LSP
-    { "gd",               function() Snacks.picker.lsp_definitions({auto_confirm = true, include_current = false, }) end,       desc = "Goto Definition" },
+    { "gd",               function() Snacks.picker.lsp_definitions({auto_confirm = true, include_current = false, nowait = true }) end,       desc = "Goto Definition" },
     { "gD",               function() Snacks.picker.lsp_declarations() end,      desc = "Goto Declaration" },
-    { "gr",               function() Snacks.picker.lsp_references() end,        nowait = true,                  desc = "References" },
+    { "gr",               function() Snacks.picker.lsp_references({nowait = true}) end,        desc = "References" },
     { "gI",               function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },
     { "gy",               function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
     { "<leader>ss",       function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },

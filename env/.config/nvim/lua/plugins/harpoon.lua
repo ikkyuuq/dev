@@ -35,11 +35,19 @@ return {
     end
 
     -- Toggle previous & next buffers stored within Harpoon list
-    -- vim.keymap.set("n", "<C-S-P>", function()
-    -- 	harpoon:list():prev()
-    -- end)
-    -- vim.keymap.set("n", "<C-S-N>", function()
-    -- 	harpoon:list():next()
-    -- end)
+    vim.keymap.set("n", "<S-H>", function()
+      if not harpoon:list() then
+        vim.notify("No files in harpoon list")
+      else
+        harpoon:list():prev({ ui_nav_wrap = true })
+      end
+    end)
+    vim.keymap.set("n", "<S-L>", function()
+      if not harpoon:list() then
+        vim.notify("No files in harpoon list")
+      else
+        harpoon:list():next({ ui_nav_wrap = true })
+      end
+    end)
   end,
 }

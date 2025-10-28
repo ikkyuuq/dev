@@ -19,10 +19,11 @@
 # ==========================
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
-shell-integration = fish
-theme = "Kanagawa Dragon"
+shell-integration-features = no-cursor
+theme = "Ayu"
 
-font-family = Iosevka Term
+# font-family = "FiraCode Nerd Font"
+font-family = "CaskaydiaCove Nerd Font Mono"
 font-size = 16
 font-thicken = true
 bold-is-bright = true
@@ -31,9 +32,11 @@ adjust-cell-height = 25%
 cursor-style = block
 cursor-style-blink = false
 
+custom-shader = shaders/cursor_smear.glsl
+
 mouse-hide-while-typing = true
 
-background-opacity = .85
+background-opacity = 0.6
 background-blur = true
 
 window-decoration = false

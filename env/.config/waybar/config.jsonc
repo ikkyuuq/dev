@@ -5,14 +5,14 @@
 	"modules-center": ["clock"],
 	"modules-right": [
 		"pulseaudio",
-		"backlight",
 		"battery",
 		"network",
+    "bluetooth",
 		"cpu",
 		"memory",
 	],
 	"hyprland/workspaces": {
-		"format": "{name}: {icon}",
+		"format": "{icon}",
 		"format-icons": {
 			"active": "",
 			"default": ""
@@ -35,18 +35,30 @@
 		"max-length": 50
 	},
 	"clock": {
-		"interval": 1,
+		"interval": 60,
 		"timezone": "Asia/Bangkok",
 		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-		"format": "{:%d/%m/%Y - %H:%M:%S}"
+		"format": "{:%d/%m/%Y | %H:%M}"
 	},
-	"network": {
-		"format-wifi": "󰤢 {bandwidthDownBits}",
-		"format-ethernet": "󰈀 {bandwidthDownBits}",
-		"format-disconnected": "󰤠 No Network",
-		"interval": 5,
-		"tooltip": false
-	},
+  "network": {
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "format": "{icon}",
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰀂",
+    "format-disconnected": "󰤮",
+    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "interval": 3,
+    "spacing": 1,
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "󰂲",
+    "format-connected": "",
+    "tooltip-format": "Devices connected: {num_connections}",
+    "on-click": "blueberry"
+  },
 	"cpu": {
 		"interval": 1,
 		"format": "  {icon0}{icon1}{icon2}{icon3} {usage:>2}%",
@@ -57,16 +69,29 @@
 		"format": "  {used:0.1f}G/{total:0.1f}G"
 	},
 	"pulseaudio": {
-		"format": "{icon} {volume}%",
+		"format": "{icon}",
 		"format-muted": "",
 		"format-icons": {
 			"default": ["", "", " "]
 		},
 		"on-click": "pavucontrol"
 	},
-	"custom/lock": {
-		"tooltip": false,
-		"on-click": "sh -c '(sleep 0.5s; hyprlock --grace 0)' & disown",
-		"format": ""
-	}
+	"battery": {
+    "format": "{icon} {capacity}%",
+    "format-discharging": "{icon}",
+    "format-charging": "{icon}",
+    "format-plugged": "",
+    "format-icons": {
+      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+    "format-full": "󰂅",
+    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+    "interval": 5,
+    "states": {
+      "warning": 20,
+      "critical": 10
+    }
+  },
 }
