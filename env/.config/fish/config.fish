@@ -71,8 +71,6 @@ set -g fish_color_selection white --bold '--background=brblack'
 set -g fish_color_user brgreen
 set -g fish_color_valid_path --underline
 
-set -Ux GEMINI_API_KEY AIzaSyCLzj1BGtzT_6hmWe5ItPVck0XedRuHaLg
-
 # Install Starship
 starship init fish | source
 # Install Atuin better history
